@@ -16,6 +16,8 @@ The text_mining module is a Python package developed as part of this repository.
 
 **Extract_date:** Extracts dates in various formats from text data using regular expressions. 
 
+![img](doc/date_extraction.png)
+
 ### Notebooks 
 Demonstrations and examples of how to use the `textMining` class can be found in the accompanying Jupyter notebook (`text_mining_demo.ipynb`). The notebook showcases various use cases, including text analysis and date extraction tasks, using both DataFrame and Series inputs. 
 
