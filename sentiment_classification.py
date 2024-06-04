@@ -12,18 +12,18 @@ from scipy.sparse import csr_matrix, hstack
 
 class SentimentClassification:
 
-    def __init__(self, df, text_col, spam_label_col):
+    def __init__(self, df, text_col: str, spam_label_col: str):
 
         # Validation: spam_label_col needs to be encoded as 0 or 1, where 1 is a spam 
-        if not all(label in [0, 1] for label in spam_label_col):
+        if not all(label in [0, 1] for label in df[spam_label_col]):
             raise ValueError("All values in spam_label_col must be either 0 or 1.")
         
         # Spliting training and testing data 
-        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(text_col,  spam_label_col, random_state=0)
+        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(df[text_col],  df[spam_label_col], random_state=0)
 
         # Spam and Non-spam data 
-        self.spam = df[spam_label_col == 1]
-        self.nonspam = df[spam_label_col == 0]
+        self.spam = df[df[spam_label_col] == 1]
+        self.nonspam = df[df[spam_label_col] == 0]
 
 
     # Feature Engineering 
@@ -42,7 +42,7 @@ class SentimentClassification:
     
 
     
-    def calculate_avg_nonword_char(self, name_of_text_col):
+    def calculate_avg_nonword_char(self, name_of_text_col: str):
         
          #Count non-word characters 
         nonword_in_spam_count = self.spam[name_of_text_col].str.count(r'\W')
@@ -98,7 +98,7 @@ class SentimentClassification:
 
     # TFI-DF 
 
-    def get_tfidf_vectorizer(self, min_df):
+    def get_tfidf_vectorizer(self, min_df: int):
 
         # ignoring terms that have a document frequency strictly lower than **3**.
         vect = TfidfVectorizer(min_df=min_df).fit(self.X_train)  
@@ -120,7 +120,7 @@ class SentimentClassification:
         return None
 
 
-    def get_tfidf_features(self, tfidf_vect, num_of_smallest_features, num_of_largest_features):
+    def get_tfidf_features(self, tfidf_vect, num_of_smallest_features: int, num_of_largest_features: int):
 
         """ This function return a tuple of two series
 
@@ -151,7 +151,7 @@ class SentimentClassification:
 
     # SVM 
 
-    def Tfidf_Vector_with_SVM(self, min_df):
+    def Tfidf_Vector_with_SVM(self, min_df: int):
 
         # Fit the training data using a TFIDFVectorizer
         vect = TfidfVectorizer(min_df=min_df).fit(self.X_train)
@@ -221,7 +221,7 @@ class SentimentClassification:
 
     
     
-    def logistic_regressions_count_vect_ngrams(self, top_n_rows_for_training):
+    def logistic_regressions_count_vect_ngrams(self, top_n_rows_for_training: int):
 
         training_set = self.X_train[:top_n_rows_for_training]
 
