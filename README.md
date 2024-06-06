@@ -1,10 +1,10 @@
-# NLP Projects 
+# Text Mining Tasks
 
-This repo contains common NLP projects such as the following:
-* Sentiment Classification 
-* Topic Modeling
-* Common text mining such as: 
-    - Extracting dates (in various formats) out of raw text
+This repo contains common text mining tasks including: 
+
+* Extracting dates in various formats 
+* Extracting social handles, digits, hyperlinks 
+* Calculate the average length per row 
 
 ## text_mining Module 
 
@@ -17,6 +17,8 @@ The text_mining module is a Python package developed as part of this repository.
 **Extract_date:** Extracts dates in various formats from text data using regular expressions. 
 
 ![img](doc/date_extraction.png)
+
+**extract_social_handle:** Extract social handle and assign each handle to a copy of its row. Accept a dataframe and its column name as parameter. Returning a dataframe with extracted handles. 
 
 ### Notebooks 
 Demonstrations and examples of how to use the `textMining` class can be found in the accompanying Jupyter notebook (`text_mining_demo.ipynb`). The notebook showcases various use cases, including text analysis and date extraction tasks, using both DataFrame and Series inputs. 

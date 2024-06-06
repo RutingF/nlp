@@ -32,7 +32,7 @@ class textMining():
                 pass
         return None # if no valid format is found 
     
-    def extract_date(self, data):
+    def extract_date(self):
     
         # Define Regular Expression patterns for all possible date variants, order by highest possiblity of date match to lowest possibility of match
         patterns = [r'(\d{1,2}(?:st|nd|rd|th)? (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*[-,.]?\s*\d{2,4})',
@@ -45,7 +45,7 @@ class textMining():
         ] 
 
         output = []
-        for text in data:
+        for text in self.data:
             parsed_date = None
             for pattern in patterns:
                 match = re.search(pattern, text)
@@ -57,3 +57,25 @@ class textMining():
             output.append({'original_text': text, 'date': parsed_date})
 
         return pd.DataFrame(output)
+    
+    def extract_social_handle(self, col_name_with_handles: str):
+
+        """
+        Extract each social handle with @ and assign each one to a row
+        """
+
+        if isinstance(self.data, pd.DataFrame):
+            output = []
+            for index, row in self.data.iterrows():
+                handles = re.findall(r'@\w+', row[col_name_with_handles])
+                for handle in handles:
+                    new_row = row.copy()
+                    new_row['extracted_handle'] = handle
+                    output.append(pd.DataFrame(new_row).transpose())
+
+            result_df = pd.concat(output).reset_index(drop=True)
+
+        else:
+            raise ValueError("Data must be a pandas DataFrame")
+
+        return result_df
