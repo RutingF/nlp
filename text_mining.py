@@ -24,6 +24,7 @@ class textMining():
         return lengths
     
     # Convert various date string formats to date type
+    # Helper function 
     def parse_date(self, text):
         for fmt in ('%m/%d/%Y', '%m/%d/%y', '%m-%d-%y','%-m/%d/%y', '%b-%d-%Y', '%b %d %Y', '%b, %Y', '%B %d %Y', '%B, %Y', '%d %b %Y','%B %d, %Y', '%d %B %Y','%b. %d, %Y','%B. %d, %Y', '%b %Y','%b %d, %Y', '%B %Y', '%m/%Y', '%m/%y', '%Y', '%y'):
             try:
@@ -79,3 +80,17 @@ class textMining():
             raise ValueError("Data must be a pandas DataFrame")
 
         return result_df
+    
+    import re
+
+    def remove_urls(self):
+
+        # Define the regex pattern for any possible URLs 
+        pattern = r'https?://[a-zA-Z0-9_-]+(?:\.[a-zA-Z0-9_-]+)+|(?:www\.)?[a-zA-Z0-9_-]+(?:\.[a-zA-Z0-9_-]+)+'
+        
+        # Use re.sub to replace all matches of the pattern with an empty string
+        cleaned_text = re.sub(pattern, '', self.data)
+        
+        return cleaned_text
+
+
