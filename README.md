@@ -5,6 +5,7 @@ This repo contains common text mining tasks including:
 * Extracting dates in various formats 
 * Extracting social handles, digits, hyperlinks 
 * Calculate the average length per row 
+* Parsing web server log data 
 
 ## text_mining Module 
 
@@ -25,7 +26,14 @@ Demonstrations and examples of how to use the `textMining` class can be found in
 
 Please refer to the notebook for detailed explanations and step-by-step instructions on how to utilize the `textMining` class in your projects.
 
-
+## log_parser Module
+Designed to parse web server log data into a structured format, using regular expressions to extract fields. 
+* Returns: 
+    * log_entries (list): A list of dictionaries containing the following keys
+        * host: The host making the request. 
+        * user_name: The username of the client (if available)
+        * time: The time the request was made. 
+        * request: The HTTP request
 
 
 
